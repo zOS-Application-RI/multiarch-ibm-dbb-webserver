@@ -11,7 +11,7 @@ ARG DBB_HOME=/var/dbb_home
 ################################################################################################
 RUN apt-get update && apt-get full-upgrade -y \
     && DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y --no-install-recommends tzdata wget curl ca-certificates gnugpg \
+    apt-get install -y --no-install-recommends tzdata wget curl ca-certificates gnupg \
     && rm -rf /var/lib/apt/lists/*
 ENV TZ=Asia/Kolkata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
