@@ -71,10 +71,14 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
       -   
         name : Docker Scan Image
+        id: scan
         uses: anchore/scan-action@v3.1.0
         with:
           image: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}
           fail-build: false
+          acs-report-enable: true
+
+
       - name: Container image scan
         uses: Azure/container-scan@v0.1
         with:
@@ -98,7 +102,8 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: snyk.sarif
+          sarif_file: snyk.sarif, ${{ steps.scan.outputs.sarif }}
+
 
       -
         name: Image digest
