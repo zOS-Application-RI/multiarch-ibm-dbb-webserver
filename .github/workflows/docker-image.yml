@@ -75,6 +75,12 @@ jobs:
         with:
           image: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}
           fail-build: false
+      - name: Container image scan
+        uses: Azure/container-scan@v0.1
+        with:
+          image-name: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}          
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
