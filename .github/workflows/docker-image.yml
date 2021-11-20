@@ -69,14 +69,11 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-          load: true
       -   
         name : Docker Scan Image
         uses: anchore/scan-action@v3.1.0
         with:
-          image: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}:latest, 
-                ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}:v1,
-                ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}:${{ steps.prep.outputs.BUILD_ID }}
+          image: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}
           fail-build: false
       -
         name: Image digest
