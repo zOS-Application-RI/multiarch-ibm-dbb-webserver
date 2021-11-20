@@ -24,11 +24,11 @@ RUN mkdir -p ${DBB_HOME} \
     && curl -fsSL ${IBM_DBB_URL} -o ${DBB_HOME}/dbb-server.tar.gz  \
     && tar -xvf dbb-server.tar.gz 
 RUN chmod a+x ${DBB_HOME}/wlp/bin/
-COPY server.xml ${DBB_HOME}/wlp/usr/servers/dbb/
-RUN chmod 777 ${DBB_HOME}/wlp/usr/servers/dbb/server.xml
+# COPY server.xml ${DBB_HOME}/wlp/usr/servers/dbb/
+# RUN chmod 777 ${DBB_HOME}/wlp/usr/servers/dbb/server.xml
 RUN chmod 777 /var/dbb_home/wlp/usr/servers/
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod a+x /usr/local/bin/start.sh
 #################################################################################################
-# VOLUME $DBB_HOME
-# ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+VOLUME $DBB_HOME/wlp/usr/servers/dbb/DBB_DATABASE
+ENTRYPOINT ["/bin/bash", "-c", "/usr/local/bin/start.sh"]
