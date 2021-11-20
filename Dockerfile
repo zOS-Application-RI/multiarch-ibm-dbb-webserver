@@ -30,7 +30,7 @@ RUN chmod a+x ${DBB_HOME}/wlp/bin/
 # RUN chmod 777 ${DBB_HOME}/wlp/usr/servers/dbb/server.xml
 RUN chmod 777 /var/dbb_home/wlp/usr/servers/
 COPY start.sh /usr/local/bin/start.sh
-RUN chmod a+x /usr/local/bin/start.sh && start.sh | bash
+RUN chmod a+x /usr/local/bin/start.sh 
 #################################################################################################
 # Use tini as subreaper in Docker container to adopt zombie processes
 ARG TINI_VERSION=v0.19.0
