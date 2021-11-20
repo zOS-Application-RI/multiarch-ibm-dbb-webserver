@@ -6,7 +6,7 @@ FROM ibmjava:${JAVA_VER}
 LABEL maintainer="ashissah@in.ibm.com"
 ################################################################################################
 ARG IBM_DBB_VER=1.1.2
-ARG IBM_DBB_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/htp/zos/aqua31/dbb/${IBM_DBB_VER}/dbb-server-${{IBM_DBB_VER}}.tar.gz
+ARG IBM_DBB_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/htp/zos/aqua31/dbb/${IBM_DBB_VER}/dbb-server-${IBM_DBB_VER}.tar.gz
 ARG DBB_HOME=/var/dbb_home
 ################################################################################################
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends wget curl ca-certificates \
