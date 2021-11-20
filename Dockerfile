@@ -32,5 +32,16 @@ RUN chmod 777 /var/dbb_home/wlp/usr/servers/
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod a+x /usr/local/bin/start.sh
 #################################################################################################
+# Use tini as subreaper in Docker container to adopt zombie processes
+ARG TINI_VERSION=v0.19.0
+COPY tini_pub.gpg ${DBB_HOME}}/tini_pub.gpg
+RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture) -o /sbin/tini \
+    && curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture).asc -o /sbin/tini.asc \
+    && gpg --no-tty --import ${DBB_HOME}/tini_pub.gpg \
+    && gpg --verify /sbin/tini.asc \
+    && rm -rf /sbin/tini.asc /root/.gnupg \
+    && chmod +x /sbin/tini
+
 VOLUME $DBB_HOME/wlp/usr/servers/dbb/DBB_DATABASE
-ENTRYPOINT ["/bin/bash", "-c", "/usr/local/bin/start.sh"]
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD [ "/var/dbb_home/wlp/bin/server", "start", "dbb"]
