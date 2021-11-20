@@ -34,7 +34,7 @@ RUN chmod a+x /usr/local/bin/start.sh
 #################################################################################################
 # Use tini as subreaper in Docker container to adopt zombie processes
 ARG TINI_VERSION=v0.19.0
-COPY tini_pub.gpg ${DBB_HOME}}/tini_pub.gpg
+COPY tini_pub.gpg ${DBB_HOME}/tini_pub.gpg
 RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture) -o /sbin/tini \
     && curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture).asc -o /sbin/tini.asc \
     && gpg --no-tty --import ${DBB_HOME}/tini_pub.gpg \
