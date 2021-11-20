@@ -9,7 +9,7 @@ ARG IBM_DBB_VER=1.1.2
 ARG IBM_DBB_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/htp/zos/aqua31/dbb/${IBM_DBB_VER}/dbb-server-${IBM_DBB_VER}.tar.gz
 ARG DBB_HOME=/var/dbb_home
 ################################################################################################
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends wget curl ca-certificates \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata wget curl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 ENV TZ=Asia/Kolkata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
