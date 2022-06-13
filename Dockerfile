@@ -52,7 +52,7 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}
     && chmod +x /sbin/tini
 
 EXPOSE 9080 9443
-VOLUME $DBB_HOME/wlp/usr/servers/dbb/DBB_DATABASE
+VOLUME $DBB_HOME/wlp/usr/servers/dbb
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["entrypoint.sh"]
 
