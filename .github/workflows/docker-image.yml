@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
       -
         name: Set up QEMU
-        uses: docker/setup-qemu-action@v1.2.0
+        uses: docker/setup-qemu-action@v2.0.0
         with:
           image: tonistiigi/binfmt:latest
           platforms: all
@@ -24,7 +24,7 @@ jobs:
         # uses: fernandrone/linelint@0.0.4
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1.6.0
+        uses: docker/setup-buildx-action@v2.0.0
         with:
           install: true
       -  
@@ -100,7 +100,7 @@ jobs:
           args: --file=Dockerfile
 
       - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
 
