@@ -1,0 +1,22 @@
+<server>
+<!--
+    Licensed Materials - Property of IBM
+    (c) Copyright IBM Corporation 2020. All Rights Reserved.
+    
+    Note to U.S. Government Users Restricted Rights:  
+    Use, duplication or disclosure restricted by GSA ADP Schedule 
+    Contract with IBM Corp. 
+ -->
+   <featureManager>
+      <feature>jdbc-4.1</feature>
+   </featureManager>
+   
+	<jdbcDriver id="derbyJDBCdriver">
+		<library name="DerbyLib">
+			<fileset dir="${shared.resource.dir}/derby/lib" includes="*.jar" />
+		</library>
+	</jdbcDriver>
+	<dataSource id="dbbConnection" jdbcDriverRef="derbyJDBCdriver" jndiName="jdbc/dbbConnection">
+		<properties.derby.embedded createDatabase="create" databaseName="DBB_DATABASE" />
+	</dataSource>
+</server>

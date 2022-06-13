@@ -1,0 +1,52 @@
+<server>
+<!--
+    Licensed Materials - Property of IBM
+    (c) Copyright IBM Corporation 2015. All Rights Reserved.
+    
+    Note to U.S. Government Users Restricted Rights:  
+    Use, duplication or disclosure restricted by GSA ADP Schedule 
+    Contract with IBM Corp. 
+ -->
+    <featureManager>
+        <feature>appSecurity-2.0</feature>
+    </featureManager>
+
+    <basicRegistry id="DBB" realm="DBB">
+        <user name="ADMIN" password="ADMIN"/>
+        <user name="dbbuser1" password="dbbuser1"/>
+        <user name="dbbuser2" password="dbbuser2"/>
+        <user name="dbbuser3" password="dbbuser3"/>
+        <user name="dbbguest1" password="dbbguest1"/>
+        <user name="dbbadmin1" password="dbbadmin1"/>
+        <user name="anyuser" password="anyuser"/>
+        
+        <group name="DBBAdmins">
+            <member name="ADMIN"/>
+            <member name="dbbadmin1"/>
+        </group>
+        <group name="DBBUsers">
+            <member name="ADMIN"/>
+        	<member name="dbbuser1"/>
+        	<member name="dbbuser2"/>
+        	<member name="dbbuser3"/>
+            <member name="dbbadmin1"/>
+        </group>
+        <group name="DBBGuests">
+            <member name="anyuser"/>
+        </group>
+        <group name="dbbgroup">
+        	<member name="dbbuser1"/>
+        	<member name="dbbuser2"/>
+        </group>
+        <group name="dbbgroup2">
+        	<member name="dbbguest1"/>
+        </group>
+        <group name="AnyGroup">
+        	<member name="anyuser"/>
+            <member name="dbbadmin1"/>
+        </group>
+        <group name="DevTeam1">
+        	<member name="ADMIN"/>
+        </group>
+    </basicRegistry>
+</server>

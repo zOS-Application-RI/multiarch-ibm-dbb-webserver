@@ -1,11 +1,11 @@
 # FROM ubuntu
 ## IBM DBB Supports only IBM JAVA v8 on Latest
-ARG JAVA_VER=8
-FROM ibmjava:${JAVA_VER}
+ARG JAVA_VER=open-8-jdk-focal
+FROM ibm-semeru-runtimes:${JAVA_VER}
 ################################################################################################
 LABEL maintainer="ashissah@in.ibm.com"
 ################################################################################################
-ARG IBM_DBB_VER=1.1.2
+ARG IBM_DBB_VER=1.1.3
 ARG IBM_DBB_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/htp/zos/aqua31/dbb/${IBM_DBB_VER}/dbb-server-${IBM_DBB_VER}.tar.gz
 ARG DBB_HOME=/var/dbb_home
 ################################################################################################
@@ -26,13 +26,22 @@ RUN mkdir -p ${DBB_HOME} \
     && curl -fsSL ${IBM_DBB_URL} -o ${DBB_HOME}/dbb-server.tar.gz  \
     && tar -xvf dbb-server.tar.gz 
 RUN chmod a+x ${DBB_HOME}/wlp/bin/
-# COPY server.xml ${DBB_HOME}/wlp/usr/servers/dbb/
-# RUN chmod 777 ${DBB_HOME}/wlp/usr/servers/dbb/server.xml
-RUN chmod 777 /var/dbb_home/wlp/usr/servers/
-COPY start.sh /usr/local/bin/start.sh
-RUN chmod a+x /usr/local/bin/start.sh 
+# RUN chmod 777 /var/dbb_home/wlp/usr/servers/
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod a+x /usr/local/bin/entrypoint.sh 
+################################################################################################
+################################IBM DBB Web Server Config Files#################################                                                 
+################################################################################################
+### Copy Server Configurations
+COPY configServer/*.*   ${DBB_HOME}/wlp/usr/servers/dbb/
+### Copy Other Configurations
+### Sample configuration found on config_sample folder
+### Edit your samples and move to configDropins/overrides folder
+COPY configDropins/overrides/*.* ${DBB_HOME}/wlp/usr/servers/dbb/configDropins/overrides/
 #################################################################################################
-# Use tini as subreaper in Docker container to adopt zombie processes
+# Use tini as subreaper in Docker container to adopt zombie processes                           #
+#################################################################################################
+
 ARG TINI_VERSION=v0.19.0
 COPY tini_pub.gpg ${DBB_HOME}/tini_pub.gpg
 RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture) -o /sbin/tini \
@@ -45,5 +54,5 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}
 EXPOSE 9080 9443
 VOLUME $DBB_HOME/wlp/usr/servers/dbb/DBB_DATABASE
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["start.sh"]
+CMD ["entrypoint.sh"]
 

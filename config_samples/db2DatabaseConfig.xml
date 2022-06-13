@@ -1,0 +1,23 @@
+<server>
+<!--
+    Licensed Materials - Property of IBM
+    (c) Copyright IBM Corporation 2020. All Rights Reserved.
+    
+    Note to U.S. Government Users Restricted Rights:  
+    Use, duplication or disclosure restricted by GSA ADP Schedule 
+    Contract with IBM Corp. 
+ -->
+   <featureManager>
+      <feature>jdbc-4.1</feature>
+   </featureManager>
+   
+	<!-- This is an example for using DB2 LUW as the database server -->
+	<jdbcDriver id="db2JDBCdriver">
+		<library name="DB2Lib">
+			<fileset dir="${shared.resource.dir}/db2" includes="*.jar"/>
+		</library>
+	</jdbcDriver>
+	<dataSource id="dbbConnection" jdbcDriverRef="db2JDBCdriver" jndiName="jdbc/dbbConnection" transactional="false">
+		<properties.db2.jcc databaseName="DBB" password="{xor}Oz1tNjEsK24=" portNumber="50000" serverName="localhost" user="db2inst1"/>
+	</dataSource>
+</server>

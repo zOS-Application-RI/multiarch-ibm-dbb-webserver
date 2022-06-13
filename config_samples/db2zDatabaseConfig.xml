@@ -1,0 +1,23 @@
+<server>
+<!--
+    Licensed Materials - Property of IBM
+    (c) Copyright IBM Corporation 2020. All Rights Reserved.
+    
+    Note to U.S. Government Users Restricted Rights:  
+    Use, duplication or disclosure restricted by GSA ADP Schedule 
+    Contract with IBM Corp. 
+ -->
+   <featureManager>
+      <feature>jdbc-4.1</feature>
+   </featureManager>
+   
+	<!-- This is an example for using DB2z as the database server -->
+	<jdbcDriver id="db2zJDBCdriver">
+		<library name="DB2Lib">
+			<fileset dir="${shared.resource.dir}/db2z" includes="*.jar"/>
+		</library>
+	</jdbcDriver>
+	<dataSource id="dbbConnection" jdbcDriverRef="db2zJDBCdriver" jndiName="jdbc/dbbConnection" transactional="false">
+		<properties.db2.jcc driverType="4" serverName="localhost" portNumber="8070" user="db2adm" password="{xor}LSs8azkqMQ==" databaseName="MVS269DB"/>
+	</dataSource>
+</server>

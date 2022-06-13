@@ -1,0 +1,13 @@
+################################################################
+# The following two lines are useful for configuring FIPS
+# encryption in the server when using an IBM JRE. If using another
+# JRE, the providers may be different from those listed in
+# dbb.java.security. The dbb.java.security file overrides
+# properties in the default java.security file but only if the
+# default file contains security.overridePropertiesFile=true.
+#
+# Uncomment the following lines to enable FIPS encryption in
+# the Liberty server.
+################################################################
+#-Djava.security.properties=dbb.java.security
+#-Dcom.ibm.jsse2.usefipsprovider=true
